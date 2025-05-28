@@ -1948,6 +1948,7 @@ input, select, textarea {
 		color: #fff !important;
 		text-decoration: none;
 		padding: 0.75em 2.5em 0.75em 2.5em;
+		margin: 0 1em 1em 0;
 		background-color: #8ebebc;
 		border: 0;
 		cursor: pointer;
@@ -2124,7 +2125,7 @@ input, select, textarea {
 			top: 0;
 		}
 
-	#nav ul {
+	/* #nav ul {
 		list-style: none;
 		padding-left: 0;
 		margin-bottom: 0;
@@ -2170,7 +2171,50 @@ input, select, textarea {
 
 					#nav ul li a.active span:before {
 						color: #e27689;
-					}
+					} */
+
+#nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#nav ul li {
+    margin-bottom: 0.5em;
+}
+
+#nav .nav-link {
+    display: flex;
+    align-items: flex-start; /* Top align icon and text */
+    justify-content: space-between;
+    text-decoration: none;
+	color: rgba(255, 255, 255, 0.7);
+    background: none;
+    transition: color 0.2s;    width: 100%;
+	font-size: 0.7em; /* Smaller font for menu items */
+    padding: 0.4em 0.5em;
+}
+
+#nav .nav-link:hover,
+#nav .nav-link:focus,
+#nav .nav-link.active {
+    color: #fff;
+}
+
+#nav .nav-text {
+    text-align: left;
+    flex: 1;
+}
+
+#nav .nav-icon {
+    text-align: right;
+    margin-left: 1em;
+    min-width: 1.5em;
+    color: #e27689; /* Or your preferred accent color */
+    font-size: 1em; /* Smaller icon */
+    min-width: 1em;
+    margin-left: 0.7em;
+}
 
 /* Footer */
 
@@ -2630,4 +2674,88 @@ input, select, textarea {
 					margin-top: 0;
 				}
 
+	}	
+	
+		/* ...existing code... */
+	.avatar-container {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		width: fit-content;
 	}
+	
+	.image.avatar48 {
+		display: block;
+		margin-bottom: 0.5em;
+	}
+	
+	.avatar-popup {
+		position: relative;
+		display: block;
+	}
+	
+	.avatar-popup .popup-image {
+		display: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: translate(-10px, -10px);
+		z-index: 10;
+		padding: 5px;
+		background: #fff;
+		border: 1px solid #ccc;
+		box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+	}
+	
+	.avatar-container:hover .popup-image {
+		display: block;
+	}
+	
+	.avatar-popup .popup-image img {
+		width: 200px;
+		height: auto;
+		border-radius: 8px;
+	}
+	/* ...existing code... */
+
+
+
+		/* ...existing code... */
+	.about-fixed {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    /* Optional: for responsive design */
+    max-width: 100%;
+    box-sizing: border-box;
+}
+	
+	.about-justify {
+		text-align: justify;
+	}
+	/* ...existing code... */
+
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Top align */
+    margin-bottom: 1em;
+}
+
+.section-header-row header {
+    margin: 0;
+}
+
+.section-header-row .home-link {
+    margin-left: 1em;
+    font-size: 0.95em;
+    color: #888;
+    text-decoration: none;
+    border-bottom: 1px dotted #ccc;
+    transition: color 0.2s;
+    align-self: flex-start; /* Ensures top alignment */
+}
+.section-header-row .home-link:hover {
+    color: #333;
+    border-bottom: 1px solid #888;
+}
