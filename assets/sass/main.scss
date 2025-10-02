@@ -4,7 +4,7 @@
 @import 'libs/vendor';
 @import 'libs/breakpoints';
 @import 'libs/html-grid';
-@import url("fontawesome-all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
 
 /*
@@ -559,7 +559,7 @@
 
 		&.brands {
 			&:before {
-				font-family: 'Font Awesome 5 Brands';
+				font-family: 'Font Awesome 6 Brands';
 			}
 		}
 	}

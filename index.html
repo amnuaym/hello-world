@@ -10,6 +10,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="icon" type="image/png" href="images/LeeSCFav.png" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
         <link rel="stylesheet" href="assets/css/main.css" />
     </head>
 	<body class="is-preload">
@@ -33,29 +34,35 @@
 
 					<!-- Nav -->
 					<nav id="nav">
-						<ul>
+						<ul id="nav-menu">
 							<li>
 								<a href="#top" id="top-link" class="nav-link">
 									<span class="nav-text">Intro</span>
-									<span class="nav-icon icon solid fa-home"></span>
+									<span class="nav-icon fa-solid fa-house"></span>
 								</a>
 							</li>
 							<li>
 								<a href="#portfolio" id="portfolio-link" class="nav-link">
 									<span class="nav-text">Portfolio</span>
-									<span class="nav-icon icon solid fa-th"></span>
+									<span class="nav-icon fa-solid fa-briefcase"></span>
+								</a>
+							</li>
+							<li>
+								<a href="#blog" id="blog-link" class="nav-link">
+									<span class="nav-text">Blog</span>
+									<span class="nav-icon fa-solid fa-blog"></span>
 								</a>
 							</li>
 							<li>
 								<a href="#about" id="about-link" class="nav-link">
 									<span class="nav-text">About Me</span>
-									<span class="nav-icon icon solid fa-user"></span>
+									<span class="nav-icon fa-solid fa-user"></span>
 								</a>
 							</li>
 							<li>
 								<a href="#contact" id="contact-link" class="nav-link">
 									<span class="nav-text">Contact</span>
-									<span class="nav-icon icon solid fa-envelope"></span>
+									<span class="nav-icon fa-solid fa-envelope"></span>
 								</a>
 							</li>
 						</ul>
@@ -67,16 +74,25 @@
 
 					<!-- Social Icons -->
 						<ul class="icons">
-							<li><a href="https://linkedin.com/in/amnuay" class="icon brands fa-linkedin-in" target="_blank" rel="noopener noreferrer"><span class="label">LinkedIn</span></a></li>
-							<li><a href="https://github.com/amnuaym" class="icon brands fa-github" target="_blank" rel="noopener noreferrer"><span class="label">Github</span></a></li>
-							<li><a href="https://x.com/amnuay" class="icon brands fa-twitter" target="_blank" rel="noopener noreferrer"><span class="label">X</span></a></li>
-							<li><a href="https://facebook.com/amnuay" class="icon brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
-							<li><a href="mailto:amnuay@gmail.com" class="icon solid fa-envelope" target="_blank" rel="noopener noreferrer"><span class="label">Email</span></a></li>
+							<li><a href="https://linkedin.com/in/amnuay" class="fa-brands fa-linkedin-in" target="_blank" rel="noopener noreferrer"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/amnuaym" class="fa-brands fa-github" target="_blank" rel="noopener noreferrer"><span class="label">Github</span></a></li>
+							<li><a href="https://x.com/amnuay" class="fa-brands fa-x-twitter" target="_blank" rel="noopener noreferrer"><span class="label">X</span></a></li>
+							<li><a href="https://facebook.com/amnuay" class="fa-brands fa-facebook-f" target="_blank" rel="noopener noreferrer"><span class="label">Facebook</span></a></li>
+							<li><a href="mailto:amnuay@gmail.com" class="fa-solid fa-envelope" target="_blank" rel="noopener noreferrer"><span class="label">Email</span></a></li>
 						</ul>
 
 				</div>
 
 			</div>
+
+            <!-- Simple Toggle Button placed outside header so it's always visible -->
+			<button id="sidebar-toggle" class="sidebar-toggle" title="Toggle sidebar" aria-label="Collapse sidebar" aria-expanded="true">
+				<i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+				<!-- Inline SVG fallback to ensure chevron is visible if Font Awesome fails to load -->
+				<svg class="sidebar-toggle-fallback" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+					<path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor" />
+				</svg>
+			</button>
 
 		<!-- Main -->
 			<div id="main">
@@ -95,6 +111,7 @@
 
 							<footer>
 								<a href="#portfolio" class="button scrolly">Portfolio</a>
+								<a href="#blog" class="button scrolly">Blog</a>
 								<a href="#about" class="button scrolly">About Me</a>
 								<a href="#contact" class="button scrolly">Contact</a>
 							</footer>
@@ -164,9 +181,44 @@
 					</div>
 				</section>
 
+				<!-- Blog -->
+				<section id="blog" class="three section-section">
+					<div class="container section-header-flex">
+						<div class="section-header-row">
+							<header>
+								<h2>Blog</h2>
+							</header>
+							<a href="#top" class="home-link" title="Back to Home">&#8962; Home</a>
+						</div>
+
+						<p class="about-justify">Latest thoughts on technology, digital transformation, and data strategy. Click any post to read more.</p>
+
+						<div class="row">
+							<div class="col-6 col-12-mobile">
+								<article class="post">
+									<header>
+										<h3><a href="/blog/post-1.html">How to start a data strategy</a></h3>
+										<p class="post-meta">Oct 1, 2025 — 5 min read</p>
+									</header>
+									<p>Foundational steps to get your organization data-ready for AI and analytics.</p>
+								</article>
+							</div>
+							<div class="col-6 col-12-mobile">
+								<article class="post">
+									<header>
+										<h3><a href="/blog/post-2.html">Practical digital transformation</a></h3>
+										<p class="post-meta">Sep 18, 2025 — 7 min read</p>
+									</header>
+									<p>Case studies and lessons learned from large enterprise programs.</p>
+								</article>
+							</div>
+						</div>
+					</div>
+				</section>
+
 				<!-- About Me -->
 
-					<section id="about" class="three section-section">
+					<section id="about" class="four section-section">
 					<div class="container section-header-flex">
 						<div class="section-header-row">
 							<header>
@@ -187,7 +239,7 @@
 				</section>
 
 				<!-- Contact -->
-					<section id="contact" class="four section-section">
+					<section id="contact" class="five section-section">
 						<div class="container section-header-flex">
 						<div class="section-header-row">
 							<header>

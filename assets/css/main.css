@@ -1,4 +1,4 @@
-@import url("fontawesome-all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
 
 /*
@@ -2012,7 +2012,7 @@ input, select, textarea {
 			text-rendering: auto;
 			line-height: 1;
 			text-transform: none !important;
-			font-family: 'Font Awesome 5 Free';
+			font-family: 'Font Awesome 6 Free';
 			font-weight: 400;
 		}
 
@@ -2029,7 +2029,35 @@ input, select, textarea {
 		}
 
 		.icon.brands:before {
-			font-family: 'Font Awesome 5 Brands';
+			font-family: 'Font Awesome 6 Brands';
+		}
+
+/* Font Awesome 7 native class support */
+		.fa-solid:before, .fa-brands:before {
+			-moz-osx-font-smoothing: grayscale;
+			-webkit-font-smoothing: antialiased;
+			display: inline-block;
+			font-style: normal;
+			font-variant: normal;
+			text-rendering: auto;
+			line-height: 1;
+			text-transform: none !important;
+		}
+
+		.fa-solid:before {
+			font-family: 'Font Awesome 6 Free';
+			font-weight: 900;
+		}
+
+		.fa-brands:before {
+			font-family: 'Font Awesome 6 Brands';
+			font-weight: 400;
+		}
+
+		/* Hide labels for Font Awesome classes (same as .icon > .label) */
+		.fa-solid > .label,
+		.fa-brands > .label {
+			display: none;
 		}
 
 /* Header */
@@ -2216,6 +2244,287 @@ input, select, textarea {
     margin-left: 0.7em;
 }
 
+/* Collapsible Sidebar with Proper Attachment */
+/* Ensure #header stays fixed (original layout) and can be translated when collapsed. */
+:root {
+	--sidebar-width: 375px; /* default width; overridden in media queries */
+	--accent: #E27689; /* site primary accent color */
+}
+
+#header {
+	position: fixed; /* restore fixed positioning so header sits on the left */
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: var(--sidebar-width);
+	transition: transform 0.3s ease, visibility 0.3s ease;
+	z-index: 10000; /* sit above main content */
+	visibility: visible; /* default visible state */
+	pointer-events: auto; /* ensure header is interactive by default */
+	/* Make header scrollable when its content exceeds viewport height */
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch; /* smooth momentum scrolling on iOS */
+}
+
+
+/* Toggle button placed outside header: fixed so it stays visible even when header is translated */
+/* Make the outer toggle a perfect circle */
+#sidebar-toggle {
+	position: fixed;
+	top: 12px; /* slightly closer to the top for a modern look */
+	left: calc(var(--sidebar-width) - 24px); /* nudge a bit so the circle visually touches the sidebar */
+	width: 44px;
+	height: 44px;
+	background: transparent; /* remove outer rounded rectangle visibility */
+	border: none;
+	border-radius: 50%; /* outer container circular but transparent */
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 0.18s cubic-bezier(.2,.9,.3,1), left 0.18s ease, box-shadow 0.12s ease;
+	color: #fff;
+	z-index: 10002;
+	box-shadow: none;
+	opacity: 1;
+	/* Ensure toggle receives pointer events (some templates may set pointer-events globally) */
+	pointer-events: auto !important;
+}
+
+#sidebar-toggle:hover {
+	transform: translateY(-2px) scale(1.02);
+}
+
+/* Style the chevron itself: smaller and placed on a small rounded inner background */
+#sidebar-toggle i {
+	font-size: 15px; /* slightly larger for readability */
+	transition: transform 0.28s ease;
+	position: relative;
+	z-index: 2;
+	color: #111 !important; /* force dark chevron for contrast */
+	/* Ensure icon accepts pointer events so screen readers and focus work */
+	pointer-events: none; /* icon should not block the button's pointer handling */
+}
+
+/* Inline SVG fallback styling: use currentColor and sit above the pill */
+.sidebar-toggle-fallback {
+	position: relative;
+	z-index: 2;
+	color: #111; /* same dark color as the chevron */
+	display: inline-block;
+}
+
+/* small rounded inner pill behind the chevron for contrast (pseudo-element) */
+#sidebar-toggle::before {
+	content: '';
+	position: absolute;
+	width: 30px; /* slightly smaller so the icon sits comfortably */
+	height: 30px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	/* use theme accent for the pill with a subtle gradient */
+	background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 80%, white 20%));
+	border-radius: 50%;
+	z-index: 1; /* place under the chevron */
+	pointer-events: none;
+	box-shadow: 0 6px 18px rgba(6,3,2,0.12);
+	border: 1px solid rgba(255,255,255,0.06);
+}
+
+
+/* When header is collapsed, position the toggle at the left edge of the viewport so it's still visible */
+
+/* Collapsed state rules applied only on wider screens (desktop) to avoid conflicting
+   with the mobile panel behavior (which uses transforms by default). */
+@media screen and (min-width: 961px) {
+	#header.collapsed {
+		/* slide fully out using the variable width so it matches breakpoints */
+		transform: translateX(calc(-1 * var(--sidebar-width)));
+		/* Ensure sidebar is completely hidden and non-interactive when collapsed */
+		visibility: hidden;
+		pointer-events: none;
+		overflow: hidden; /* prevent scrollbars when hidden on desktop */
+	}
+
+	/* When header is collapsed, position the toggle at the left edge of the viewport so it's still visible */
+	#header.collapsed + #sidebar-toggle,
+	#header.collapsed ~ #sidebar-toggle {
+		left: 10px; /* small offset from left when collapsed */
+	}
+
+	#header.collapsed + #sidebar-toggle i,
+	#header.collapsed ~ #sidebar-toggle i {
+		transform: rotate(180deg);
+	}
+
+	/* Make sure the toggle's .open state has higher specificity on desktop as well */
+	#header + #sidebar-toggle.open i,
+	#header ~ #sidebar-toggle.open i,
+	#sidebar-toggle.open i {
+		transform: rotate(0deg);
+	}
+
+/* JS-driven visual: when the toggle has class 'open' the sidebar is expanded -> chevron should
+   point left (no rotation). When the toggle does NOT have 'open' (collapsed), we rotate
+   the chevron 180deg so it points right. Keep the #header.collapsed selectors for
+   CSS-only fallback/back-compat. */
+#sidebar-toggle.open i {
+	transform: rotate(0deg);
+}
+
+	/* When the sidebar is collapsed, make the main area and footer span the full viewport width */
+	#header.collapsed ~ #main {
+		margin-left: 0 !important;
+		width: 100%;
+	}
+
+	#header.collapsed ~ #main > section {
+		/* ensure section content stays padded and readable when full width */
+		margin-left: 0;
+		padding-left: 1.5em;
+		padding-right: 1.5em;
+	}
+
+	#header.collapsed ~ #footer {
+		margin-left: 0 !important;
+		width: 100%;
+	}
+}
+
+/* Ensure chevron flips for both desktop (.collapsed) and JS-driven toggle (.open) */
+#header.collapsed + #sidebar-toggle i,
+#header.collapsed ~ #sidebar-toggle i,
+/* When the toggle does NOT have the 'open' class it means the sidebar is collapsed;
+   show the chevron pointing right (rotate 180deg). When .open is present (expanded),
+   no rotation so chevron points left. */
+#sidebar-toggle:not(.open) i {
+	transform: rotate(180deg);
+}
+
+/* Smooth transitions for main content and footer so collapse/expand feels natural */
+#main {
+    transition: margin-left 0.35s cubic-bezier(.2,.9,.3,1), transform 0.35s cubic-bezier(.2,.9,.3,1), width 0.35s ease;
+}
+
+#footer {
+    transition: margin-left 0.35s cubic-bezier(.2,.9,.3,1);
+}
+
+/* Duplicate collapsed state rules removed - these are handled in the desktop media query above */
+
+/* Keep original sidebar colors and restore proper icon positioning */
+#nav .nav-link {
+	color: rgba(255, 255, 255, 0.7);
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+#nav .nav-link:hover, #nav .nav-link:focus, #nav .nav-link.active {
+    color: #fff;
+    background: none;
+    transform: none;
+}
+
+#nav .nav-text {
+    text-align: left;
+    flex: 1;
+    color: inherit;
+}
+
+#nav .nav-icon {
+    text-align: right;
+    margin-left: 1em;
+    min-width: 1.5em;
+    color: #e27689;
+    font-size: 1em;
+}
+
+/* Standardize button sizes - same width and height */
+.button.scrolly {
+    display: inline-block;
+    min-width: 100px;
+    padding: 8px 16px;
+    text-align: center;
+    margin: 0 4px;
+    height: 36px;
+    line-height: 20px;
+    box-sizing: border-box;
+}
+
+/* Make the contact form submit match the top .button styles */
+input[type="submit"] {
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	background: linear-gradient(90deg, #E27689 0%, #d96f86 100%);
+	color: #fff;
+	padding: 8px 16px;
+	min-width: 120px;
+	height: 36px;
+	line-height: 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	box-shadow: 0 6px 12px rgba(226, 118, 137, 0.18);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+input[type="submit"]:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 20px rgba(226, 118, 137, 0.22);
+}
+
+/* Responsive behavior and proper scaling */
+@media screen and (min-width: 961px) and (max-width: 1280px) {
+	/* On tablet widths: keep header static (desktop-like) but keep toggle visible */
+	#header { transform: none; }
+}
+
+@media screen and (min-width: 1281px) {
+	/* Ensure toggle is visible on wide screens */
+	#sidebar-toggle {
+		display: flex;
+	}
+
+	#sidebar-toggle i {
+		font-size: 15px; /* slightly larger for readability */
+		transition: transform 0.28s ease;
+		position: relative;
+		z-index: 2;
+		color: #fff; /* white chevron for best contrast on accent */
+	}
+
+	/* Main area sits to the right of the fixed sidebar */
+	#main {
+		margin-left: var(--sidebar-width);
+		transition: margin-left 0.3s ease;
+	}
+
+	/* When sidebar is collapsed, allow main to span full width */
+	#header.collapsed ~ #main {
+		margin-left: 0;
+	}
+
+	#footer {
+		margin-left: var(--sidebar-width);
+		transition: margin-left 0.3s ease;
+	}
+
+	#header.collapsed ~ #main ~ #footer {
+		margin-left: 0;
+	}
+}
+
+/* Center content areas and limit width for consistent alignment */
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1100px; /* keep content centered and readable */
+	width: 100%;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+
 /* Footer */
 
 	#footer {
@@ -2319,8 +2628,10 @@ input, select, textarea {
 
 		/* Header */
 
+			:root { --sidebar-width: 300px; }
+
 			#header {
-				width: 300px;
+				width: var(--sidebar-width);
 			}
 
 		/* Footer */
@@ -2381,6 +2692,8 @@ input, select, textarea {
 
 		/* Header */
 
+			:root { --sidebar-width: 20%; }
+
 			#header {
 				width: 20%;
 			}
@@ -2428,6 +2741,49 @@ input, select, textarea {
 
 	@media screen and (max-width: 960px) {
 
+	/* Position the chevron toggle appropriately on small screens.
+	   When the panel is visible, place the toggle roughly at the sidebar edge.
+	   When hidden, keep it near the viewport left edge so it's reachable. */
+	#sidebar-toggle {
+		left: calc(var(--sidebar-width) - 24px);
+		/* ensure toggle is above everything and reachable on tiny screens */
+		z-index: 10003;
+	}
+
+	body:not(.header-visible) #sidebar-toggle {
+		left: 10px;
+	}
+
+
+	/* Ensure the header is fully hidden when the mobile panel is not visible.
+	   Some environments produced a partial closing where the header remained
+	   partially onscreen; these rules force the header transform to the full
+	   negative sidebar width when body.header-visible is not present. */
+	body:not(.header-visible) #header {
+		-moz-transform: translateX(calc(-1 * var(--sidebar-width))) !important;
+		-webkit-transform: translateX(calc(-1 * var(--sidebar-width))) !important;
+		-ms-transform: translateX(calc(-1 * var(--sidebar-width))) !important;
+		transform: translateX(calc(-1 * var(--sidebar-width))) !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+	overflow: hidden !important;
+	}
+
+	/* When the mobile panel is visible, ensure header is fully onscreen */
+	body.header-visible #header {
+		-moz-transform: translateX(0) !important;
+		-webkit-transform: translateX(0) !important;
+		-ms-transform: translateX(0) !important;
+		transform: translateX(0) !important;
+	visibility: visible !important;
+	pointer-events: auto !important;
+	/* ensure scrollability when shown on mobile */
+	overflow-y: auto !important;
+	-webkit-overflow-scrolling: touch !important;
+	z-index: 10002 !important; /* keep header above toggle when open */
+	}
+
+
 		/* Basic */
 
 			html, body {
@@ -2461,15 +2817,17 @@ input, select, textarea {
 
 		/* Header */
 
+			:root { --sidebar-width: 275px; }
+
 			#header {
 				-moz-backface-visibility: hidden;
 				-webkit-backface-visibility: hidden;
 				-ms-backface-visibility: hidden;
 				backface-visibility: hidden;
-				-moz-transform: translateX(-275px);
-				-webkit-transform: translateX(-275px);
-				-ms-transform: translateX(-275px);
-				transform: translateX(-275px);
+				-moz-transform: translateX(calc(-1 * var(--sidebar-width)));
+				-webkit-transform: translateX(calc(-1 * var(--sidebar-width)));
+				-ms-transform: translateX(calc(-1 * var(--sidebar-width)));
+				transform: translateX(calc(-1 * var(--sidebar-width)));
 				-moz-transition: -moz-transform 0.5s ease;
 				-webkit-transition: -webkit-transform 0.5s ease;
 				-ms-transition: -ms-transform 0.5s ease;
@@ -2481,9 +2839,9 @@ input, select, textarea {
 				overflow-y: auto;
 				position: fixed;
 				top: 0;
-				width: 275px;
+				width: var(--sidebar-width);
 				z-index: 10002;
-				width: 275px;
+				width: var(--sidebar-width);
 				background: #222729 url("images/overlay.png");
 				box-shadow: inset -0.25em 0 0.25em 0 rgba(0, 0, 0, 0.125);
 			}
@@ -2517,7 +2875,7 @@ input, select, textarea {
 				-webkit-transition: -webkit-transform 0.5s ease;
 				-ms-transition: -ms-transform 0.5s ease;
 				transition: transform 0.5s ease;
-				display: block;
+				display: none !important; /* hide template hamburger; use chevron toggle instead */
 				height: 2.25em;
 				left: 0;
 				position: fixed;
@@ -2546,7 +2904,7 @@ input, select, textarea {
 						text-rendering: auto;
 						line-height: 1;
 						text-transform: none !important;
-						font-family: 'Font Awesome 5 Free';
+						font-family: 'Font Awesome 6 Free';
 						font-weight: 900;
 					}
 
@@ -2568,17 +2926,17 @@ input, select, textarea {
 					}
 
 			body.header-visible #main {
-				-moz-transform: translateX(275px);
-				-webkit-transform: translateX(275px);
-				-ms-transform: translateX(275px);
-				transform: translateX(275px);
+				-moz-transform: translateX(var(--sidebar-width));
+				-webkit-transform: translateX(var(--sidebar-width));
+				-ms-transform: translateX(var(--sidebar-width));
+				transform: translateX(var(--sidebar-width));
 			}
 
 			body.header-visible #headerToggle {
-				-moz-transform: translateX(275px);
-				-webkit-transform: translateX(275px);
-				-ms-transform: translateX(275px);
-				transform: translateX(275px);
+				-moz-transform: translateX(var(--sidebar-width));
+				-webkit-transform: translateX(var(--sidebar-width));
+				-ms-transform: translateX(var(--sidebar-width));
+				transform: translateX(var(--sidebar-width));
 			}
 
 			body.header-visible #header {
