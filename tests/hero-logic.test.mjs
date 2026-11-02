@@ -1,10 +1,10 @@
 /**
- * Tests for docs/assets/js/hero-logic.js (the email box at the top of the home page).
+ * Tests for assets/js/hero-logic.js (the email box at the top of the home page).
  * Real logic, no mocks: every case calls the real function.
  */
 import test from "node:test";
 import assert from "node:assert/strict";
-import { prepareHandoff } from "../docs/assets/js/hero-logic.js";
+import { prepareHandoff } from "../assets/js/hero-logic.js";
 
 test("a plain valid address is accepted unchanged", () => {
   const result = prepareHandoff("name@company.com");

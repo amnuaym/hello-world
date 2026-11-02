@@ -1,6 +1,6 @@
 /**
  * Tests for scripts/wcag.mjs and scripts/placeholders.mjs,
- * plus the real colour-contrast check of docs/assets/css/styles.css.
+ * plus the real colour-contrast check of assets/css/styles.css.
  */
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -88,7 +88,7 @@ const REQUIRED_PAIRS = [
 ];
 
 test("the real stylesheet meets WCAG contrast in light and dark mode", async () => {
-  const css = await readFile(join(ROOT, "docs/assets/css/styles.css"), "utf8");
+  const css = await readFile(join(ROOT, "assets/css/styles.css"), "utf8");
   const themes = readThemes(css);
 
   for (const [themeName, tokens] of Object.entries(themes)) {
@@ -116,7 +116,7 @@ const DESIGN_PAIRS = [
 ];
 
 test("the redesigned home page colour pairs meet WCAG contrast in light and dark mode", async () => {
-  const css = await readFile(join(ROOT, "docs/assets/css/styles.css"), "utf8");
+  const css = await readFile(join(ROOT, "assets/css/styles.css"), "utf8");
   const themes = readThemes(css);
   for (const [themeName, tokens] of Object.entries(themes)) {
     for (const [fg, bg, minimum, description] of DESIGN_PAIRS) {
@@ -132,7 +132,7 @@ test("the redesigned home page colour pairs meet WCAG contrast in light and dark
 });
 
 test("light and dark themes define the same set of tokens", async () => {
-  const css = await readFile(join(ROOT, "docs/assets/css/styles.css"), "utf8");
+  const css = await readFile(join(ROOT, "assets/css/styles.css"), "utf8");
   const { light, dark } = readThemes(css);
   assert.deepEqual(Object.keys(dark).sort(), Object.keys(light).sort());
 });

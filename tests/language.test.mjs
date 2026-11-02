@@ -8,10 +8,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { chooseLanguage, nextLanguage, LANGUAGES, DEFAULT_LANGUAGE } from "../docs/assets/js/language.js";
+import { chooseLanguage, nextLanguage, LANGUAGES, DEFAULT_LANGUAGE } from "../assets/js/language.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = join(ROOT, "docs");
+const SITE = ROOT;
 
 /* ------------------------------ language.js ------------------------------ */
 

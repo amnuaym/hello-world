@@ -1,5 +1,5 @@
 /**
- * Tests for docs/assets/js/contact-logic.js
+ * Tests for assets/js/contact-logic.js
  * Run with:  npm test
  * Real logic only: no mocks. Includes negative inputs and extreme edge cases.
  */
@@ -13,7 +13,7 @@ import {
   isValidEmail,
   validateContact,
   buildMailtoUrl,
-} from "../docs/assets/js/contact-logic.js";
+} from "../assets/js/contact-logic.js";
 
 const RECIPIENT = "contact@leesc.in";
 

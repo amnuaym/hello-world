@@ -1,5 +1,5 @@
 /**
- * Tests for the real website files in docs/.
+ * Tests for the real website files at the top level of this repository.
  * Part 1 tests the helper functions on small sample pages (including bad pages).
  * Part 2 checks the actual pages: structure, accessibility basics, links,
  * "zero dependency" rule, and consistency between files.
@@ -22,10 +22,12 @@ import {
   isExternalRef,
   resolveLocalRef,
 } from "../scripts/html-scan.mjs";
-import { TOPICS } from "../docs/assets/js/contact-logic.js";
+import { TOPICS } from "../assets/js/contact-logic.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = join(ROOT, "docs");
+const SITE = ROOT;
+// Project tooling at the root, which is not part of the published website.
+const NOT_SITE = /^(scripts|tests|backup|node_modules|\.git|\.claude)([\\/]|$)|^(README\.md|package\.json|\.gitignore)$/;
 const CANONICAL_HOST = "https://www.leesc.in";
 
 /* ------------------------- Part 1: helper functions ------------------------ */
@@ -312,7 +314,7 @@ test("the site folder contains no unexpected file types", async () => {
   const entries = await readdir(SITE, { recursive: true });
   for (const entry of entries) {
     const info = await stat(join(SITE, entry));
-    if (info.isDirectory()) continue;
+    if (info.isDirectory() || NOT_SITE.test(entry)) continue;
     const base = entry.split(/[\\/]/).pop();
     // GitHub Pages marker file: tells Pages to serve the folder as-is, without Jekyll.
     if (base === ".nojekyll") continue;

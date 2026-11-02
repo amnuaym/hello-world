@@ -1,11 +1,11 @@
 /**
- * Tests for docs/assets/js/steps.js (the five "How we work" steps).
+ * Tests for assets/js/steps.js (the five "How we work" steps).
  * The pure functions are tested directly. readCaption is tested with plain
  * objects that have the same shape as a button's dataset, which is the real input.
  */
 import test from "node:test";
 import assert from "node:assert/strict";
-import { activeStepIndex, readCaption } from "../docs/assets/js/steps.js";
+import { activeStepIndex, readCaption } from "../assets/js/steps.js";
 
 test("activeStepIndex returns the first and last valid steps", () => {
   assert.equal(activeStepIndex(5, 0), 0);
