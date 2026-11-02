@@ -1,0 +1,18 @@
+# Local-only files: not part of the website or the repository.
+
+# Old copies of files kept on this computer
+backup/
+
+# Local preview settings for the desktop app
+.claude/
+
+# Dependencies (none are needed today, but npm would create this folder)
+node_modules/
+
+# Logs and editor or operating-system clutter
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
