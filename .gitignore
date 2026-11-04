@@ -1,0 +1,145 @@
+# ==============================================================================
+# Git Ignore Configuration
+# Purpose: Exclude sensitive, insecure, operating system, and generated files
+# Reference: https://github.com/github/gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment and Secret Configuration Files
+# ------------------------------------------------------------------------------
+.env
+.env.*
+*.env
+*.env.local
+.secrets
+*.secrets
+secrets*
+secret*
+credentials*
+*.credentials
+config/credentials*
+
+# ------------------------------------------------------------------------------
+# 2. Private Keys, Cryptographic Certificates, and Key Stores
+# ------------------------------------------------------------------------------
+*.pem
+*.key
+*.pkcs12
+*.p12
+*.pfx
+*.asc
+*.cer
+*.crt
+*.der
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+*.keystore
+*.jks
+known_hosts*
+authorized_keys*
+
+# ------------------------------------------------------------------------------
+# 3. Authentication Tokens, Service Accounts, and Cloud Credentials
+# ------------------------------------------------------------------------------
+*.token
+*.tokens
+*.jwt
+token.json
+auth.json
+serviceAccountKey*.json
+client_secret*.json
+.netrc
+.htpasswd
+.aws/
+.gcloud/
+.azure/
+
+# ------------------------------------------------------------------------------
+# 4. Operating System and File System Clutter
+# ------------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Microsoft Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+
+# ------------------------------------------------------------------------------
+# 5. Integrated Development Environment (IDE) & Editor Settings
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+.*.swp
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+.claude/
+.gemini/
+.cursor/
+.copilot/
+
+# ------------------------------------------------------------------------------
+# 6. Logs, Process Dumps, and Crash Reports
+# ------------------------------------------------------------------------------
+*.log
+logs/
+*.logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.dmp
+*.stackdump
+core
+core.*
+
+# ------------------------------------------------------------------------------
+# 7. Backup and Temporary Files
+# ------------------------------------------------------------------------------
+*.bak
+*.old
+*.orig
+*.tmp
+*.temp
+*~
+*.backup
+*.backup.*
+
+# ------------------------------------------------------------------------------
+# 8. Dependency Directories and Build Outputs
+# ------------------------------------------------------------------------------
+node_modules/
+dist/
+build/
+out/
+coverage/
+.cache/
+.sass-cache/
+
+# ------------------------------------------------------------------------------
+# 9. Database Files and Data Dumps
+# ------------------------------------------------------------------------------
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.sql
